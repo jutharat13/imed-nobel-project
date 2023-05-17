@@ -5,7 +5,7 @@ function Filter() {
 
     return (
         <div>
-            <p>Filter</p>
+            <p className="headre"><h5>Filter</h5></p>
         </div>
     );
 }

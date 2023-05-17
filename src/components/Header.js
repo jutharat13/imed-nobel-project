@@ -1,7 +1,7 @@
 function Header() {
     return (
-        <div>
-            <p>Nobel Prize</p>
+        <div className="headre">
+            <h2>Nobel Prize</h2>
             </div>
     );
 }

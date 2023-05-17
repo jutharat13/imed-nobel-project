@@ -31,51 +31,24 @@ function App() {
 
   if (!post) return null;
 
-  // const nobelElements = post.map((post, index) => {
-  //   return <Details key={index} posts={post} />;
-  // });
-  const [searchYear, setSearchYear] = useState("");
-
-  const nobelElements = post.filter((post) => {
-    return post.awardYear.includes(searchYear);
-  }).map((post, index) => {
+  const nobelElements = post.map((post, index) => {
     return <Details key={index} posts={post} />;
   });
-
-  // const [searchYear, setSearchYear] = useState("");
-
-  // const FilteredYear = post.filter((post) => {
-  //   return post.awardYear.includes(searchYear);
-  // });
-  // console.log(FilteredYear);
+  
+  const [searchYear, setSearchYear] = useState("");
 
 
   function onFilteredClick() {
-    const FilteredYear = post.filter((post) => {
-      return post.awardYear.includes(searchYear);
-    }).map((post, index) => {
-      return <Details key={index} posts={post} />;
+
+    axios.get(`${baseURL}/nobelPrizes?nobelPrizeYear=${searchYear}`).then((response) => {
+      setPost(response.data.nobelPrizes);
+      console.log(response.data.nobelPrizes);
     });
-    console.log(FilteredYear);
-    FilteredYear = nobelElements;
+
   }
-//   if(!!FilteredYear) {
-// console.log("test");
-//   }
-  // if (!!FilteredYear) {
-  //   const nobelFiltered = FilteredYear.map((post, index) => {
-  //     return <Details key={index} posts={post} />;
-  //   });
-  // }
-
-
-  // if(!!FilteredYear){
-  //   filteredNonel = <Details posts={nobelFiltered} />
-  //   console.log("test")
-  // }
 
   return (
-    <div className="App">
+    <div>
       <Container>
         <Row>
           <Col>
@@ -85,7 +58,7 @@ function App() {
         <Row>
           <Col sm={4}>
             <Filter />
-            <Form.Label>AwardYear</Form.Label>
+            <Form.Label className="labelForm">AwardYear</Form.Label>
             <Form.Control
               id="search-input"
               type="number"
@@ -95,7 +68,8 @@ function App() {
                 setSearchYear(event.target.value);
               }}
             />
-            <Button
+            <Button 
+            className="ButtonFilter"
               onClick={() => {
                 onFilteredClick((event) => {
                   setSearchYear(event.target.value);
@@ -106,7 +80,7 @@ function App() {
             </Button>
           </Col>
           <Col sm={8}>
-            <p>Nobel Prize</p>
+            <p className="headre"><h5>Nobel Prize</h5></p>
             <Table>
               <thead>
                 <tr>
@@ -114,11 +88,19 @@ function App() {
                   <th>Category</th>
                   <th>CategoryFullName</th>
                   <th>DateAwarded</th>
+                  <th>Amount</th>
+
                 </tr>
               </thead>
+              {nobelElements}
+              {/* <tr>
+                <th>Amount</th>
+                <th></th>
+                  <th></th>
+                  <th></th>
+                <th>1000</th>
+              </tr> */}
             </Table>
-            {nobelElements}
-            {/* {FilteredYear} */}
           </Col>
         </Row>
       </Container>
