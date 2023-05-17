@@ -2,7 +2,7 @@ import Table from "react-bootstrap/Table";
 function Details(props) {
   const { posts } = props;
   return (
-    // <Table striped size="sm">
+    // < striped size="sm">
       <tbody>
         <tr>
           <th>{posts.awardYear}</th>
@@ -12,7 +12,7 @@ function Details(props) {
           <th>{posts.prizeAmount}</th>
         </tr>
       </tbody>
-    // </Table>
+
   );
 }
 export default Details;
